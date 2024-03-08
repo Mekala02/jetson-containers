@@ -2,7 +2,7 @@
 # name: llama_cpp
 # group: llm
 # config: config.py
-# depends: [cmake, python, numpy, huggingface_hub]
+# depends: [cuda, cudnn, cmake, python, numpy, huggingface_hub]
 # requires: '>=34.1.0'
 # test: test_version.py
 # docs: docs.md
@@ -46,14 +46,9 @@ RUN cp llama-cpp-python/dist/llama_cpp_python*.whl /opt && \
     pip3 install --no-cache-dir --verbose /opt/llama_cpp_python*.whl
 
 # python3 -m llama_cpp.server missing 'import uvicorn'
-RUN pip3 install --no-cache-dir --verbose uvicorn anyio starlette sse-starlette fastapi pydantic-settings
+RUN pip3 install --no-cache-dir --verbose uvicorn anyio starlette sse-starlette starlette-context fastapi pydantic-settings
 
-# for benchmark timing
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends time \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
-    
+# add benchmark script
 COPY benchmark.py llama.cpp/bin/benchmark.py
 
 WORKDIR / 

@@ -51,6 +51,9 @@ if [ $ARCH = "aarch64" ]; then
 		--volume /etc/enctune.conf:/etc/enctune.conf \
 		--volume /etc/nv_tegra_release:/etc/nv_tegra_release \
 		--volume /tmp/nv_jetson_model:/tmp/nv_jetson_model \
+		--volume /var/run/dbus:/var/run/dbus \
+		--volume /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket \
+		--volume /var/run/docker.sock:/var/run/docker.sock \
 		--volume $ROOT/data:/data \
 		--device /dev/snd \
 		--device /dev/bus/usb \
